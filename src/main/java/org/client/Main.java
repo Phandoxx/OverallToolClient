@@ -1,6 +1,7 @@
 package org.client;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.*;
 import java.net.*;
@@ -21,6 +22,10 @@ public class Main {
         JPanel controlPanel = new JPanel();  // independent panel
         controlPanel.setBackground(new Color(51, 51, 51));
 
+        JTabbedPane tabbedPane = new JTabbedPane();
+        JPanel settingsPanel = new JPanel();
+        JPanel secondPanel = new JPanel();
+
         JButton stopButton = new JButton();
         stopButton.setText("Close/Stop");
         stopButton.setFont(new Font("Times New Roman", Font.BOLD, 16));
@@ -37,12 +42,18 @@ public class Main {
         startButton.setBounds(550, 100, 200, 30);
         controlPanel.add(startButton);
 
+        JButton startupFolderButton = new JButton();
+        startupFolderButton.setText("Run On Startup");
+        startupFolderButton.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        startupFolderButton.setForeground(Color.WHITE);
+        startupFolderButton.setBackground(Color.DARK_GRAY);
+        startupFolderButton.setBounds(500, 100, 100, 30);
+        secondPanel.add(startupFolderButton);
+
         MainFrame.add(controlPanel, BorderLayout.SOUTH);  // always visible at bottom
 
+        secondPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        JTabbedPane tabbedPane = new JTabbedPane();
-        JPanel settingsPanel = new JPanel();
-        JPanel secondPanel = new JPanel();
 
         settingsPanel.setBackground(new Color(31, 31, 31));
         settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.Y_AXIS));
@@ -72,6 +83,9 @@ public class Main {
         });
         stopButton.addActionListener(e -> {
             System.exit(0);
+        });
+        startupFolderButton.addActionListener(e -> {
+            System.out.println("No function added yet");
         });
     }
     public static class settings { // Retrieves settings
