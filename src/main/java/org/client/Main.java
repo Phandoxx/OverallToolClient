@@ -26,6 +26,8 @@ public class Main {
         JPanel settingsPanel = new JPanel();
         JPanel secondPanel = new JPanel();
 
+
+
         JButton stopButton = new JButton();
         stopButton.setText("Close/Stop");
         stopButton.setFont(new Font("Times New Roman", Font.BOLD, 16));
@@ -47,8 +49,16 @@ public class Main {
         startupFolderButton.setFont(new Font("Times New Roman", Font.BOLD, 16));
         startupFolderButton.setForeground(Color.WHITE);
         startupFolderButton.setBackground(Color.DARK_GRAY);
-        startupFolderButton.setBounds(500, 100, 100, 30);
+        startupFolderButton.setBounds(0, 0, 100, 30);
         secondPanel.add(startupFolderButton);
+
+        JButton removeStartupFolderButton = new JButton();
+        removeStartupFolderButton.setText("Remove from Startup");
+        removeStartupFolderButton.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        removeStartupFolderButton.setForeground(Color.WHITE);
+        removeStartupFolderButton.setBackground(Color.DARK_GRAY);
+        removeStartupFolderButton.setBounds(0, 0, 100, 30);
+        secondPanel.add(removeStartupFolderButton);
 
         MainFrame.add(controlPanel, BorderLayout.SOUTH);  // always visible at bottom
 
@@ -56,12 +66,26 @@ public class Main {
 
 
         settingsPanel.setBackground(new Color(31, 31, 31));
-        settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.Y_AXIS));
+        settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.X_AXIS));
 
         secondPanel.setBackground(new Color(31, 31, 31));
-        secondPanel.setLayout(new BoxLayout(secondPanel, BoxLayout.Y_AXIS));
+        secondPanel.setLayout(new BoxLayout(secondPanel, BoxLayout.X_AXIS));
 
-        tabbedPane.addTab("second", secondPanel);
+        JPanel secondTab = new JPanel();
+        secondTab.setLayout(new BoxLayout(secondTab, BoxLayout.X_AXIS));
+        secondTab.setBorder(new EmptyBorder(10, 10, 10, 10));
+        secondTab.setBackground(new Color(31, 31, 31));
+
+        startupFolderButton.setAlignmentY(Component.TOP_ALIGNMENT);
+        removeStartupFolderButton.setAlignmentY(Component.TOP_ALIGNMENT);
+
+        secondTab.add(startupFolderButton);
+        secondTab.add(Box.createHorizontalStrut(10));
+        secondTab.add(removeStartupFolderButton);
+        secondTab.add(Box.createHorizontalGlue()); // push buttons to left
+
+        tabbedPane.addTab("Second", secondTab);
+
         tabbedPane.addTab("Settings", settingsPanel);
         MainFrame.add(tabbedPane, BorderLayout.CENTER);
 
@@ -85,7 +109,10 @@ public class Main {
             System.exit(0);
         });
         startupFolderButton.addActionListener(e -> {
-            System.out.println("No function added yet");
+            System.out.println("No function added yet for addition");
+        });
+        removeStartupFolderButton.addActionListener(e -> {
+            System.out.println("No function added yet for removal");
         });
     }
     public static class settings { // Retrieves settings
