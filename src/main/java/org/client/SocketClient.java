@@ -10,7 +10,8 @@ public class SocketClient {
         try {
             String ip = Main.settings.get("ip", "null");
             System.out.println("IP" + ip);
-            if (ip.equalsIgnoreCase("true")) {
+            if (ip.equalsIgnoreCase("")) { // if empty
+                System.out.println("No IP given, cannot start");
                 return;
             }
 
