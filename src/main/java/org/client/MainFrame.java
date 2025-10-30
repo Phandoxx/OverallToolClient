@@ -1,4 +1,4 @@
-package org.server;
+package org.client;
 
 import javax.swing.*;
 import java.awt.*;

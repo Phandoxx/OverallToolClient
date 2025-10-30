@@ -16,7 +16,7 @@ public class Main {
         AtomicReference<Wini> ini = new AtomicReference<>(new Wini(new File("files/options/settings.ini")));
         AtomicReference<settings> settings = new AtomicReference<>(new settings("options/settings.ini"));
 
-        org.server.MainFrame MainFrame = new org.server.MainFrame();
+        org.client.MainFrame MainFrame = new org.client.MainFrame();
         MainFrame.setLayout(new BorderLayout());
 
         JPanel controlPanel = new JPanel();  // independent panel
