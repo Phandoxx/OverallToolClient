@@ -23,7 +23,7 @@ public class Main {
         controlPanel.setBackground(new Color(51, 51, 51));
 
         JTabbedPane tabbedPane = new JTabbedPane();
-        JPanel settingsPanel = new JPanel();
+        JPanel appsPanel = new JPanel();
         JPanel secondPanel = new JPanel();
 
 
@@ -65,28 +65,28 @@ public class Main {
         secondPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
 
-        settingsPanel.setBackground(new Color(31, 31, 31));
-        settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.X_AXIS));
+        appsPanel.setBackground(new Color(31, 31, 31));
+        appsPanel.setLayout(new BoxLayout(appsPanel, BoxLayout.X_AXIS));
 
         secondPanel.setBackground(new Color(31, 31, 31));
         secondPanel.setLayout(new BoxLayout(secondPanel, BoxLayout.X_AXIS));
 
-        JPanel secondTab = new JPanel();
-        secondTab.setLayout(new BoxLayout(secondTab, BoxLayout.X_AXIS));
-        secondTab.setBorder(new EmptyBorder(10, 10, 10, 10));
-        secondTab.setBackground(new Color(31, 31, 31));
+        JPanel settingsPanel = new JPanel();
+        settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.X_AXIS));
+        settingsPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        settingsPanel.setBackground(new Color(31, 31, 31));
 
         startupFolderButton.setAlignmentY(Component.TOP_ALIGNMENT);
         removeStartupFolderButton.setAlignmentY(Component.TOP_ALIGNMENT);
 
-        secondTab.add(startupFolderButton);
-        secondTab.add(Box.createHorizontalStrut(10));
-        secondTab.add(removeStartupFolderButton);
-        secondTab.add(Box.createHorizontalGlue()); // push buttons to left
-
-        tabbedPane.addTab("Second", secondTab);
+        settingsPanel.add(startupFolderButton);
+        settingsPanel.add(Box.createHorizontalStrut(10));
+        settingsPanel.add(removeStartupFolderButton);
+        settingsPanel.add(Box.createHorizontalGlue()); // push buttons to left
 
         tabbedPane.addTab("Settings", settingsPanel);
+
+        tabbedPane.addTab("Apps", appsPanel);
         MainFrame.add(tabbedPane, BorderLayout.CENTER);
 
         MainFrame.setVisible(true);
