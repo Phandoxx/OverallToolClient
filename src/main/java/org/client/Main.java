@@ -26,8 +26,8 @@ public class Main {
         JPanel controlPanel = new JPanel();
         controlPanel.setBackground(new Color(51, 51, 51));
 
-        JButton startButton = createButton("Start");
-        JButton stopButton = createButton("Close/Stop");
+        JButton startButton = createButton("Start", 100, 30);
+        JButton stopButton = createButton("Close/Stop", 150, 30);
 
         controlPanel.add(startButton);
         controlPanel.add(stopButton);
@@ -68,8 +68,8 @@ public class Main {
         settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.X_AXIS));
         settingsPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        JButton startupFolderButton = createButton("Run On Startup");
-        JButton removeStartupFolderButton = createButton("Remove from Startup");
+        JButton startupFolderButton = createButton("Run On Startup", 200, 50);
+        JButton removeStartupFolderButton = createButton("Remove from Startup", 200, 50);
 
         startupFolderButton.setAlignmentY(Component.TOP_ALIGNMENT);
         removeStartupFolderButton.setAlignmentY(Component.TOP_ALIGNMENT);
@@ -91,7 +91,7 @@ public class Main {
         appsPanel.setLayout(new BoxLayout(appsPanel, BoxLayout.X_AXIS));
         appsPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        JButton calendarButton = createButton("Calendar");
+        JButton calendarButton = createButton("Calendar", 100, 50);
         calendarButton.setAlignmentY(Component.TOP_ALIGNMENT);
 
         calendarButton.addActionListener(e -> {
@@ -105,12 +105,13 @@ public class Main {
         return appsPanel;
     }
 
-    private static JButton createButton(String text) {
+    private static JButton createButton(String text, int width, int height) {
         JButton button = new JButton(text);
         button.setFont(new Font("Times New Roman", Font.BOLD, 16));
         button.setForeground(Color.WHITE);
         button.setBackground(Color.DARK_GRAY);
         button.setFocusPainted(false);
+        button.setPreferredSize(new Dimension(width, height));
         return button;
     }
 
