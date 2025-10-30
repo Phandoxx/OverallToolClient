@@ -94,7 +94,9 @@ public class Main {
         JButton calendarButton = createButton("Calendar");
         calendarButton.setAlignmentY(Component.TOP_ALIGNMENT);
 
-        calendarButton.addActionListener(e -> System.out.println("No function added yet for calender"));
+        calendarButton.addActionListener(e -> {
+            CalenderApp.CalenderApp();
+        });
 
         appsPanel.add(calendarButton);
         appsPanel.add(Box.createHorizontalStrut(10));
