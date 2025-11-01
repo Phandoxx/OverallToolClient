@@ -74,8 +74,12 @@ public class Main {
         startupFolderButton.setAlignmentY(Component.TOP_ALIGNMENT);
         removeStartupFolderButton.setAlignmentY(Component.TOP_ALIGNMENT);
 
-        startupFolderButton.addActionListener(e -> System.out.println("No function added yet for addition"));
-        removeStartupFolderButton.addActionListener(e -> System.out.println("No function added yet for removal"));
+        startupFolderButton.addActionListener(e -> {
+            CreateShortcut.createStartupShortcut("OverallToolsApp");
+        });
+        removeStartupFolderButton.addActionListener(e -> {
+            CreateShortcut.removeStartupShortcut("OverallToolsApp");
+        });
 
         settingsPanel.add(startupFolderButton);
         settingsPanel.add(Box.createHorizontalStrut(10));
