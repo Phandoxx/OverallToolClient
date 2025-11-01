@@ -12,13 +12,14 @@ public class CreateShortcut {
      */
     public static void createStartupShortcut(String shortcutName) {
         try {
+            // --- Detect OS ---
             String os = System.getProperty("os.name").toLowerCase();
             if (!os.contains("win")) {
-                System.out.println("Not running on Windows — skipping shortcut creation. Found Operating System: " + os);
+                System.out.println("⛔ Not running on Windows — skipping shortcut creation.");
                 return;
             }
 
-            // Get the current running file path (jar or exe)
+            // --- Find current file (JAR or classpath) ---
             String currentPath = new File(CreateShortcut.class
                     .getProtectionDomain()
                     .getCodeSource()
@@ -26,37 +27,53 @@ public class CreateShortcut {
                     .toURI())
                     .getPath();
 
-            // Path to user's startup folder
-            String startupFolder = System.getenv("APPDATA")
-                    + "\\Microsoft\\Windows\\Start Menu\\Programs\\Startup";
+            if (!currentPath.endsWith(".jar")) {
+                System.out.println("⚠️ Not running from a JAR file — skipping shortcut creation.");
+                return;
+            }
 
-            // Full shortcut path
+
+            // --- Path to user's Startup folder ---
+            String startupFolder = System.getenv("APPDATA") +
+                    "\\Microsoft\\Windows\\Start Menu\\Programs\\Startup";
+
+            // --- Name of shortcut ---
             String shortcutPath = startupFolder + "\\" + shortcutName + ".lnk";
 
-            // Create a temporary VBScript file
+            // --- Path to javaw.exe ---
+            String javaPath = System.getProperty("java.home") + "\\bin\\javaw.exe";
+
+            // --- Create temporary VBScript ---
             Path tempVbs = Files.createTempFile("createShortcut", ".vbs");
 
-            // VBScript content to create the shortcut
+            // --- VBScript content ---
             String vbs = """
-                Set oWS = WScript.CreateObject("WScript.Shell")
-                sLinkFile = "%s"
-                Set oLink = oWS.CreateShortcut(sLinkFile)
-                oLink.TargetPath = "%s"
-                oLink.WorkingDirectory = "%s"
-                oLink.Save
-                """.formatted(shortcutPath.replace("\\", "\\\\"),
+                    Set oWS = WScript.CreateObject("WScript.Shell")
+                    sLinkFile = "%s"
+                    Set oLink = oWS.CreateShortcut(sLinkFile)
+                    oLink.TargetPath = "%s"
+                    oLink.Arguments = "-jar ""%s""\"
+                    oLink.WorkingDirectory = "%s"
+                    oLink.Save
+                """.formatted(
+                    shortcutPath.replace("\\", "\\\\"),
+                    javaPath.replace("\\", "\\\\"),
                     currentPath.replace("\\", "\\\\"),
-                    new File(currentPath).getParent().replace("\\", "\\\\"));
+                    new File(currentPath).getParent().replace("\\", "\\\\")
+            );
 
-            // Write the VBScript file
+            // --- Write VBScript to temp file ---
             Files.writeString(tempVbs, vbs);
 
-            // Run it silently
-            new ProcessBuilder("wscript", tempVbs.toString()).start().waitFor();
+            // --- Execute VBScript using Windows Script Host ---
+            new ProcessBuilder("wscript", tempVbs.toString())
+                    .inheritIO()
+                    .start()
+                    .waitFor();
 
             System.out.println("✅ Shortcut created in Startup folder: " + shortcutPath);
 
-            // Clean up temp file
+            // --- Clean up ---
             Files.deleteIfExists(tempVbs);
 
         } catch (Exception e) {
